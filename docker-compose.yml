@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:16
+    container_name: energy_db
+    environment:
+      POSTGRES_USER: energy
+      POSTGRES_PASSWORD: energy_pw
+      POSTGRES_DB: energy
+    ports:
+      - "5432:5432"
+    volumes:
+      - energy_pgdata:/var/lib/postgresql/data
+
+  api:
+    build: ./backend
+    container_name: energy_api
+    environment:
+      DATABASE_URL: postgresql+psycopg2://energy:energy_pw@db:5432/energy
+      SMARD_BASE_URL: https://www.smard.de/app
+      # Set your SMARD "filter/module ids" here (examples are placeholders!)
+      SMARD_FILTER_LOAD: "6004362"
+      SMARD_FILTER_WIND: "8004169"
+      SMARD_FILTER_SOLAR: "8004169"   # replace with correct solar id
+      INGEST_INTERVAL_MINUTES: "60"
+      OPENMETEO_LAT: "52.52"
+      OPENMETEO_LON: "13.405"
+      TZ: Europe/Berlin
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  energy_pgdata:
