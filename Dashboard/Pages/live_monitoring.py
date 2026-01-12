@@ -11,7 +11,7 @@ from utils import REGIONS, METRICS, RESOLUTIONS, get_timeseries, pretty_unit
 # Auto-refresh (live feel): refresh page every 60 seconds
 st_autorefresh(interval=60 * 1000, key="live_refresh")
 
-st.header("📈 Live Monitoring")
+st.header(" Live Monitoring")
 st.caption("Live view updates automatically. Data availability depends on source publication delay (SMARD).")
 
 API_BASE = os.getenv("ENERGY_API_BASE", "http://127.0.0.1:8000").rstrip("/")
@@ -101,7 +101,7 @@ st.plotly_chart(fig, use_container_width=True)
 # Threshold highlighting
 if threshold_on:
     exceed = df[df["value"] > threshold].copy()
-    st.subheader("🚨 Threshold exceedances")
+    st.subheader(" Threshold exceedances")
     st.write(f"Threshold: **{threshold:.1f} {unit}**")
 
     if exceed.empty:

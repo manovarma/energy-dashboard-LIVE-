@@ -6,7 +6,7 @@ from dateutil import tz
 
 from utils import get_timeseries
 
-st.header("🌍 Energy Mix (Renewables vs Conventional)")
+st.header(" Energy Mix (Renewables vs Conventional)")
 
 with st.sidebar:
     mode = "api"
